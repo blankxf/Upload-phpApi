@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h1>FormData</h1>
+	
+	<input type="file" name="pic[]" multiple id="myinput">
+	<button onclick="uploadFile()">上传</button>
+
+
+	<script>
+		function uploadFile(){
+			
+
+            var files=document.getElementById("myinput").files;
+            console.log(files)
+			 // [].forEach.call(document.getElementById("myinput").files, function(itemFile){
+    //             //读取文件
+    //              readImage(itemFile);
+    //             // console.log(e.dataTransfer.files)
+    //             // console.log(itemFile)  
+
+
+    //         })
+
+    for(var i=0;i<files.length;i++){
+
+    	readImage(files[i])
+    }
+
+
+	
+
+			function readImage(obj){
+
+		    var xhr = new XMLHttpRequest();
+
+		    var fd = new FormData();
+
+		    fd.append("pic", obj);
+			// fd.append("username", "xiaopingping");
+
+			xhr.onreadystatechange = function(){
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					console.log(xhr.responseText);
+				}
+			}
+
+			xhr.open("POST", "upload.php");
+
+			xhr.send(fd);
+
+			}
+
+			
+
+			
+		}
+
+	</script>
+</body>	
+</html>
